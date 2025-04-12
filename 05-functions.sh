@@ -20,11 +20,11 @@ else
     echo " You are root user "
 fi
 
-yum install msql -y
+yum install mysql -y
 
 VALIDATE
 
-yum install msql -y
+yum install git -y
 
 VALIDATE
 
