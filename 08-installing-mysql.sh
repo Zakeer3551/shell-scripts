@@ -8,6 +8,9 @@ Y="\e[33m"
 N="\e[0m"
 
 
+TIMESTAMP=$(date +%F:%r)
+LOG_FILE="/tmp/$0-$TIMESTAMP.log"
+
 VALIDATE (){
     if [ $1 -ne 0 ]
         then
@@ -30,10 +33,10 @@ fi
 
 for package in $@
 do 
-    yum list installed $package
+    yum list installed $package &>> LOG_FILE
     if [ $? -ne 0 ]
         then
-        yum install $package -y
+        yum install $package -y &>> LOG_FILE
         VALIDATE $? "Installing of $package"
         else
         echo -e "$package is already installed :: $Y SKIPPING $N"
