@@ -2,6 +2,9 @@
 
 ID=$(id -u)
 TIMESTAMP=$(date +%F:%r)
+R="\e[31m"
+G="\e[32m"
+N="\e[0m"
 
 LOG_FILE="/tmp/$0-$TIMESTAMP.log"
 
@@ -11,19 +14,19 @@ LOG_FILE="/tmp/$0-$TIMESTAMP.log"
 VALIDATE(){
     if [ $1 -ne 0 ] # $1, $2, these are arugments upto $n nth arguement we can give 
     then
-        echo " ERROR: $2 is failed "
+        echo -e " ERROR: $2 is $R FAILED $N"
         exit 1
     else
-        echo " $2 is successful"
+        echo " $2 is $R SUCCESS $N"
 fi
 }
 
 if [ $ID -gt 0 ]
 then
-    echo " ERROR: Please run this with root user "
+    echo -e " $R ERROR: $N Please run this with root user "
     exit 1
 else 
-    echo " You are root user "
+    echo -e " $G You are root user $N"
 fi
 
 yum install mysql -y  &>> $LOG_FILE
