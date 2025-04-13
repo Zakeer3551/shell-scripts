@@ -8,7 +8,8 @@ Y="\e[33m"
 N="\e[0m"
 
 if [$ID -ne 0]
-    echo -e "$R Please run with root user $N"
+then
+    echo -e "$R ERROR:: Please run with root user $N"
     exit 1
     else 
     echo -e "$G You are root user $N"
