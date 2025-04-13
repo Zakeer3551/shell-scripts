@@ -2,30 +2,41 @@
 
 ID=$(id -u)
 
-if [ $ID -ne 0 ]
-then
-    echo "ERROR:: Please run this script with root access"
-    exit 1 # you can give other than 0
-else
-    echo "You are root user"
-fi # fi means reverse of if, indicating condition end
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+N="\e[0m"
 
-yum install mysql -y
-
-if [ $? -ne 0 ]
-then
-    echo "ERROR:: Installing MySQL is failed"
+if [$ID -ne 0]
+    echo -e "$R Please run with root user $N"
     exit 1
-else
-    echo "Installing MySQL is SUCCESS"
+    else 
+    echo -e "$G You are root user $N"
 fi
 
-yum install git -y
+VALIDATE (){
+    if [$1 -ne 0]
+        then
+        echo -e "$2 :: $R FAILED $N"
+        else 
+        echo -e "$2 :: $G SUCCESS $N"
+    fi
+}
 
-if [ $? -ne 0 ]
-then
-    echo "ERROR:: Installing GIT is failed"
-    exit 1
-else
-    echo "Installing GIT is SUCCESS"
-fi
+
+for package in $@
+do 
+    yum list installed $package
+    if [$? -ne 0]
+        then
+        yum install $package -y
+        VALIDATE $? "Installing is $package"
+        else
+        echo -e "$package is already installed :: $Y SKIPPING $N"
+    fi
+done
+
+
+
+
+
