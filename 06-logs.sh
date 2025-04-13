@@ -31,7 +31,9 @@ fi
 
 yum install mysql -y  &>> $LOG_FILE
 
-VALIDATE $? "Installing MYSQL" # $1, $2, these are arugments which we are passing to up(line 15 validate function) so there $1 = $? means ($? is the exit status of previous command (here in this case previous command is yum install mysql -y the exit status is 0 (0 means success)) and $2 = "Installing MYSQL") son in line 17,20 - $2 comes like "Installing MYSQL" 
+VALIDATE $? "Installing MYSQL" # $1, $2, these are arugments which we are passing to up(line 15 validate function) 
+#so there $1 = $? means ($? is the exit status of previous command (here in this case previous command is yum install mysql -y the exit status is 0 (0 means success)) 
+# and $2 = "Installing MYSQL") son in line 17,20 - $2 comes like "Installing MYSQL" 
 # so if we add one more thing after "Installing MYSQL" it will become 3rd arugment ($3 argument) and we call it in validate function as $3) 
 
 yum install git -y &>> $LOG_FILE
